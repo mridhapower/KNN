@@ -1,0 +1,41 @@
+from google.colab import drive
+drive.mount('/content/drive')
+
+import pandas as pd
+import numpy as np
+import math as mt
+
+path = "/content/drive/My Drive/movies_recommendation_data.csv"
+df_bonus = pd.read_csv(path)
+#print(df_bonus)
+b=np.array(df_bonus[0:27])
+c=np.array(df_bonus[27:])
+print("train")
+#print(b)
+print("test")
+#print(c)
+rowb,colb=b.shape
+rowc,colc=c.shape
+
+
+for i in range(0,rowc):
+  list=[]
+  res=[]
+  for j in range(0,rowb):
+    
+    sum=0.0
+    for k in range(2,colb):
+      sum+=(b[j,k]-c[i,k])**2
+    sum=mt.sqrt(sum)
+    #print(sum)
+    res=(sum,b[j][1])
+    list.append(res)
+  
+  def sort(t):
+    return t[0]
+  list.sort(key=sort)
+  res=np.array(list[0:5])
+  print(c[i,1])
+  print(res)
+  print()
+    
